@@ -2,16 +2,17 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   name: String,
-  price: String,
+  price: Number,
   img: String,
   selectedSize: String,
-  date: String,
   address: {
     doorNo: String,
     city: String,
-    pincode: String
+    pincode: String,
+    phone: String,
   },
-  phone: String
+  paymentMethod: String,
+  date: String,
 });
 
 module.exports = mongoose.model("Order", orderSchema);
