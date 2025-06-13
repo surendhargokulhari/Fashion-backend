@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Atlas Connection
-mongoose.connect("mongodb+srv://root:MySecurePassword@cluster0.l7sub8i.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0", {
+mongoose.connect("mongodb+srv://root:yourActualPassword@cluster0.l7sub8i.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0", {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true, // optional for latest versions
 })
 .then(() => console.log("✅ MongoDB Atlas connected"))
 .catch((err) => console.error("❌ MongoDB connection failed:", err));
