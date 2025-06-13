@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Order = require('../models/orderRoutes');
+const Order = require('../models/order');
+
 
 // Create order
-router.post('/', async (req, res) => {
+router.post('/', async (req, res) => { 
   try {
     const order = new Order(req.body);
     await order.save();
