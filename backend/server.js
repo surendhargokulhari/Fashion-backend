@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config(); // Load .env variables
 const orderRoutes = require("./routes/orders");
 
 const app = express();
@@ -9,16 +10,16 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 
-// ✅ CORS Middleware – Put this AFTER express.json but BEFORE routes
+// ✅ CORS – Allow frontend domains
 app.use(cors({
-  origin: ["http://localhost:3000", "https://fashion-flick-4ag8.vercel.app/"]
+  origin: ["http://localhost:3000", "https://your-frontend.onrender.com"]
 }));
 
 // Routes
 app.use("/api/orders", orderRoutes);
 
-// MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/fashion_db", {
+// ✅ MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
