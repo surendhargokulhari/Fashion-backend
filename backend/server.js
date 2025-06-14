@@ -2,38 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const orderRoutes = require("./routes/orders");
-require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ CORS Setup
-app.use(cors({
-  origin: [
-    "http://localhost:3000",               // for local dev
-    "https://your-frontend.onrender.com"   // for deployed frontend
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
-
-// ✅ Middleware
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-// ✅ Routes
+// Routes
 app.use("/api/orders", orderRoutes);
 
-// ✅ MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
+// MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/fashion_db", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-  console.log("✅ MongoDB connected");
-  app.listen(process.env.PORT, () =>
-    console.log(`🚀 Server running on port ${process.env.PORT}`)
-  );
-})
-.catch((err) => {
-  console.error("❌ MongoDB connection error:", err);
-});
+  .then(() => {
+    console.log("✅ MongoDB connected");
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+  });
