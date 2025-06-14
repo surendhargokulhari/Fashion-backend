@@ -14,10 +14,7 @@ app.use(express.json());
 app.use("/api/orders", orderRoutes);
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB connected");
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
@@ -25,3 +22,4 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err);
   });
+
