@@ -11,7 +11,7 @@ app.use(express.json());
 
 // ✅ CORS Middleware – Put this AFTER express.json but BEFORE routes
 app.use(cors({
-  origin: ["http://localhost:3000", "https://your-frontend.onrender.com"]
+  origin: ["http://localhost:3000", "https://fashion-flick-4ag8.vercel.app/"]
 }));
 
 // Routes
