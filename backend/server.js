@@ -1,5 +1,4 @@
-// Load environment variables from .env file
-require("dotenv").config(); // ✅ this line is important
+require("dotenv").config(); // ✅ this line loads your .env file
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -25,3 +24,4 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err);
   });
+
