@@ -39,4 +39,15 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// GET all orders
+router.get("/", async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ date: -1 });
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
 module.exports = router;
