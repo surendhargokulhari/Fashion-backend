@@ -2,25 +2,36 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/order");
 
-// POST /api/orders
+// GET all orders
 router.post("/", async (req, res) => {
   try {
-    const order = new Order(req.body);
-    await order.save();
-    res.status(201).json({ message: "Order saved successfully!" });
+    const { price, ...rest } = req.body;
+
+    const cleanedPrice = parseFloat(price.toString().replace(/[^\d.]/g, ""));
+
+    const newOrder = new Order({
+      ...rest,
+      price: cleanedPrice,
+    });
+
+    await newOrder.save();
+    res.status(201).json({ message: "Order placed successfully" });
   } catch (error) {
-    console.error("Error saving order:", error);
-    res.status(500).json({ message: "Failed to save order" });
+    console.error("POST /api/orders error:", error);
+    res.status(400).json({ error: error.message });
   }
 });
 
-// Optional: GET all orders (for testing)
-router.get("/", async (req, res) => {
+
+
+// POST a new order
+router.post("/", async (req, res) => {
   try {
-    const orders = await Order.find();
-    res.json(orders);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching orders" });
+    const newOrder = new Order(req.body);
+    await newOrder.save();
+    res.status(201).json(newOrder);
+  } catch (err) {
+    res.status(400).json({ message: "Failed to place order", error: err.message });
   }
 });
 
