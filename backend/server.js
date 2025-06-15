@@ -11,6 +11,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+  origin: [
+    "http://localhost:3000",                      // for local frontend
+    "https://fashion-flick-4ag8.vercel.app/",           // your deployed frontend
+  ],
+  credentials: true,
+}));
+
+
 // Routes
 app.use("/api/orders", orderRoutes);
 
