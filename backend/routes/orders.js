@@ -26,18 +26,18 @@ router.post("/", async (req, res) => {
 });
 
 // DELETE an order by ID
+// DELETE /api/orders/:id
+// DELETE /api/orders/:id
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
-    if (!deletedOrder) {
-      return res.status(404).json({ message: "Order not found" });
-    }
+    const deleted = await Order.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ message: "Order not found" });
     res.json({ message: "Order deleted successfully" });
-  } catch (error) {
-    console.error("DELETE /api/orders/:id error:", error);
-    res.status(500).json({ message: "Server error", error: error.message });
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
   }
 });
+
 
 // GET all orders
 router.get("/", async (req, res) => {
