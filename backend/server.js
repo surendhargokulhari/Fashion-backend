@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const orderRoutes = require("./routes/orders");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,10 +15,12 @@ app.use(express.json());
 app.use("/api/orders", orderRoutes);
 
 // MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/fashion_db", {
+
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
+
   .then(() => {
     console.log("✅ MongoDB connected");
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
